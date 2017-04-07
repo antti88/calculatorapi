@@ -1,0 +1,148 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Performs plus, minus, multiply and divide calculations.\n",
+        "version": "1.0.0",
+        "title": "Calculator API"
+    },
+    "basePath": "/calculator",
+    "paths": {
+        "/plus": {
+            "get": {
+                "summary": "Plus calculation",
+                "description": "/plus endpoint performs plus calculation.\n",
+                "operationId": "plusGET",
+                "parameters": [
+                    {
+                        "name": "number1",
+                        "in": "query",
+                        "description": "First number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    },
+                    {
+                        "name": "number2",
+                        "in": "query",
+                        "description": "Second number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Error"
+                    }
+                },
+                "x-swagger-router-controller": "Default"
+            }
+        },
+        "/minus": {
+            "get": {
+                "summary": "Minus calculation",
+                "description": "/minus endpoint performs minus calculation.\n",
+                "operationId": "minusGET",
+                "parameters": [
+                    {
+                        "name": "number1",
+                        "in": "query",
+                        "description": "First number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    },
+                    {
+                        "name": "number2",
+                        "in": "query",
+                        "description": "Second number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Error"
+                    }
+                },
+                "x-swagger-router-controller": "Default"
+            }
+        },
+        "/multiply": {
+            "get": {
+                "summary": "Multiply calculation",
+                "description": "/multiply endpoint performs multiply calculation.\n",
+                "operationId": "multiplyGET",
+                "parameters": [
+                    {
+                        "name": "number1",
+                        "in": "query",
+                        "description": "First number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    },
+                    {
+                        "name": "number2",
+                        "in": "query",
+                        "description": "Second number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Error"
+                    }
+                },
+                "x-swagger-router-controller": "Default"
+            }
+        },
+        "/divide": {
+            "get": {
+                "summary": "Divide calculation",
+                "description": "/divide endpoint performs divide calculation.\n",
+                "operationId": "divideGET",
+                "parameters": [
+                    {
+                        "name": "number1",
+                        "in": "query",
+                        "description": "First number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    },
+                    {
+                        "name": "number2",
+                        "in": "query",
+                        "description": "Second number of the calculation.",
+                        "required": true,
+                        "type": "number",
+                        "format": "int"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "default": {
+                        "description": "Error"
+                    }
+                },
+                "x-swagger-router-controller": "Default"
+            }
+        }
+    },
+    "definitions": {}
+}

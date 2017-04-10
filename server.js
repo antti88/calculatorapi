@@ -7,9 +7,25 @@
  var bodyParser = require('body-parser');
  var swaggerize = require('swaggerize-express');
  var swaggerUi = require('swaggerize-ui'); // second change
- var path = require('path');
+ var path = require('path'),
+    app = require('express')(),
+    mobileApps = require('azure-mobile-apps'),
+    configuration = require('azure-mobile-apps/src/configuration'),
+    mobileApp,
 
- var app = express();
+    config = {
+        skipVersionCheck: true,
+        pageSize: 1000,
+        auth: { secret: 'secret' }
+    };
+
+mobileApp = mobileApps(config);
+
+// tables
+mobileApp.tables.add('calcvalues',{ columns: { firstNum: 'string', secondNum: 'string', operatin: 'string', ans: 'string' } });
+mobileApp.tables.import('tables');
+
+app.use(mobileApp);
 
  var server = http.createServer(app);
 

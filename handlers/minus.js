@@ -41,5 +41,26 @@ module.exports = {
 		result = (number1 - number2);
 		
 		res.json({operation,number1, number2, result});
+   var calctable = req.azureMobile.tables('calcvalues');
+
+        var toBeInserted = {firstNum: number1,
+                            secondNum: number2,
+                            ans: result,
+                            operation: operation,
+
+                                id: ''};
+
+        var promiseReturned = calctable.insert(toBeInserted);
+
+        promiseReturned.then(function(data){
+
+                console.log('insert with success!');
+
+                next();
+
+         },function(error){
+
+        console.log('Found an error',error);
+         });
     }
 };

@@ -16,13 +16,14 @@
     config = {
         skipVersionCheck: true,
         pageSize: 1000,
-        auth: { secret: 'secret' }
+        //auth: { secret: 'secret' }
     };
 
 mobileApp = mobileApps(config);
 
 // tables
-mobileApp.tables.add('calcvalues',{ columns: { firstNum: 'string', secondNum: 'string', operatin: 'string', ans: 'string' } });
+mobileApp.tables.add('calcvalues',{autoIncrement: true, columns: { firstNum: 'string', secondNum: 'string', operatin: 'string', ans: 'string', userName: 'string'} });
+mobileApp.tables.add('UsersTable',{columns: { userName: 'string', pass: 'string', result: 'string', token: 'string', secret: 'string'} });
 mobileApp.tables.import('tables');
 
 app.use(mobileApp);
@@ -41,6 +42,7 @@ app.use(mobileApp);
  app.use('/docs', swaggerUi({
    docs: '/swagger'  
  }));
+ mobileApp.api.import('./api');
 
  server.listen(port, function () { 
  console.log("server running on port: " +port);// fifth and final change

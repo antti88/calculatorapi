@@ -13,54 +13,60 @@ module.exports = {
      * responses: 200, default
      */
     get: function divideGET(req, res, next) {
-        /**
-         * Get the data for response 200
-         * For response `default` status 200 is used.
-         */
-		 /*
-        var status = 200;
-        var provider = dataProvider['get']['200'];
-        provider(req, res, function (err, data) {
-            if (err) {
-                next(err);
-                return;
+        console.log(' DIVIDE called!');
+        var calculate = require('../api/calculator');
+        var operation = 'divide';
+        var token = req.get('ownAuth');
+        var secretKey = '';
+        var secretOk =false;
+        
+        var query = { sql: 'SELECT secret FROM UsersTable WHERE token=@p1', parameters: [{ name: 'p1', value: token }] };
+        req.azureMobile.data.execute(query).then(function (results) {
+
+            if (results == null || results == '') {
+                
+                console.log("Secret doesn't match! result null or empty");
+                res.json("Please login in! redirect -> loginsite");
             }
-            res.status(status).send(data && data.responses);
-        });*/
-		
-		var operation = "operation";
-		var number1 = 0;
-		var number2 = 0
-		var result = 0;
-		
-		console.log("GET request /divide");
-	
-		operation = "divide";
-		number1 = parseInt(req.query.number1);
-		number2 = parseInt(req.query.number2);
-		result = (number1 / number2);
-		
-		res.json({operation,number1, number2, result});
-    var calctable = req.azureMobile.tables('calcvalues');
+            else {
+                try {
+                    console.log("Secret match!");
+                    secretKey = results[0].secret;
+                    console.log('Query result: '+secretKey); 
+                    secretOk=true;
+                    
 
-        var toBeInserted = {firstNum: number1,
-                            secondNum: number2,
-                            ans: result,
-                            operation: operation,
-
-                                id: ''};
-
-        var promiseReturned = calctable.insert(toBeInserted);
-
-        promiseReturned.then(function(data){
-
-                console.log('insert with success!');
-
-                next();
-
-         },function(error){
-
-        console.log('Found an error',error);
-         });
+                } catch (error) {
+                    console.log("Secret doesn't match!: ", error);
+                    res.json("Please login in! redirect -> loginsite");
+                }
+                
+                 if(secretOk){
+                    console.log("PUT in verify these-> secret: " + secretKey + " Token: " + token);
+	           
+                    calculate(req,res, next, operation, token, secretKey, function (calcresult) {
+                    var calcres = calcresult;
+                    console.log('calculate result: ', calcres);
+                    
+                    if (calcres==0){
+                   res.json('Token not valid!');
+                   }
+                   else{
+                       res.json(calcres);
+                   }
+                
+                    });
+                    
+                    }else{
+                        res.json("SecretKey failed!!!");
+                    }
+            
+            } 
+        });
+        
+                   
+        
     }
+
 };
+

@@ -15,6 +15,7 @@ module.exports = {
      */
     get: {
         200: function (req, res, callback) {
+            console.log(' PLUS called!');
             /**
              * Using mock data generator module.
              * Replace this by actual data for the api.
@@ -26,6 +27,7 @@ module.exports = {
             }, callback);
         },
         default: function (req, res, callback) {
+            console.log(' PLUS called!');
             /**
              * Using mock data generator module.
              * Replace this by actual data for the api.
